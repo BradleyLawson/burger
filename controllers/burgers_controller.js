@@ -1,11 +1,17 @@
 // Express
 var express = require('express');
 
+// Create the router for the app, and export the router at the end of your file.
+var router = express.Router();
+
 // requiring burger.js
 var burger = require('../models/burger.js');
 
-// Create the router for the app, and export the router at the end of your file.
-var router = express.Router();
+
+
+// router.get('/', function(req, res) {
+// 	res.redirect('/');
+// });
 
 // Create all our routes and set up logic within those routes where required.
 router.get("/", function(req, res) {
@@ -18,12 +24,13 @@ router.get("/", function(req, res) {
     });
   });
   
-  router.post("/burgers", function(req, res) {
+  router.post("/api/burgers", function(req, res) {
     burger.insertOne([
       "burger_name"
     ], [
       req.body.burger_name
     ], function(result) {
+      //res.json({ id: result.insertId });
       res.redirect('/')
     });
   });
@@ -36,13 +43,12 @@ router.get("/", function(req, res) {
     burger.updateOne({
       devoured: true
     }, condition, function(result) {
-      if (result.changedRows == 0) {
-        // If no rows were changed, then the ID must not exist, so 404
-        return res.status(404).end();
+     if (result.changedRows == 0) {
+       return res.status(404).end();
       } else {
         res.redirect('/');
-        res.status(200).end();
-      }
+       res.status(200).end();
+     }
     });
   });
   

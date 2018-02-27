@@ -1,45 +1,64 @@
 {{!-- Setup the index.handlebars to have the template that Handlebars can render onto. --}}
 
 {{!-- Create a button in index.handlebars that will submit the user input into the database. --}}
-<h1>Eat-Da-Burger!</h1>
+<h1 class = "center-align">Eat-Da-Burger!</h1>
 
 <main>
-  <div class="container">
-    <div class="row">
-      <div class="col s6">
-        {{#each burgers}}
-          {{#unless this.devoured}}
-            <div>
-              <form action="/burgers/{{this.id}}?_method=PUT" method="POST">
-                <button type="submit" class='burgerAvailable'> {{this.burger_name}}</button>
-              </form>
+    {{!-- Container --}}
+    <div class = "container">
+        {{!-- Row --}}
+        <div class = "row">
+            {{!-- Fav Burgers Col --}}
+            <div class = "col-md-6">
+                <ul class = "list-group">
+                {{#each burgers}}
+                    {{#unless this.devoured}}
+                        <li class = "list-group-item" id = "yellow">
+                            <div class = "input-group" >
+                                <p>
+                                    {{this.burger_name}}
+                                </p>
+                                <span class = "input-group-btn">
+                                    <form action="/api/burgers/{{this.id}}?_method=PUT" method="POST">
+                                        <input type="hidden" name="devoured" value="true">
+                                        <button type="submit" class="btn btn-danger btn-sm"> Devour it!</button>
+                                    </form>
+                                </span>
+                            </div>
+                        </li>
+                    {{/unless}}
+                {{/each}}
+                </ul>
             </div>
-          {{/unless}}
-        {{/each}}
-      </div>
 
-      <div class="col s6">
-        {{#each burgers}}
-          {{#if this.devoured}}
-            <div class='burgerEaten'>
-              <div>
-                {{this.burger_name}}
-              </div>
+
+            {{!-- Devoured Burger Col --}}
+            <div class = "col-md-6">
+                <ul class = "list-group">
+                {{#each burgers}}
+                    {{#if this.devoured}}
+                        <li class='list-group-item' id = "red">
+                            <p>
+                                {{this.burger_name}}
+                            </p>
+                        </li>
+                    {{/if}}
+                {{/each}}
+                </ul>
             </div>
-          {{/if}}
-        {{/each}}
-      </div>
+        </div>
     </div>
-  </div>
 </main>
 
-<h2>Enter a burger you want to eat and click the submit button</h2>
+<h4 class = "center-align">Enter a burger you want to eat and click the submit button</h4>
 
 <div class="row">
-  <div class="col s12">
-    <form action="/burgers" method="POST">
+  <div class="col s12" >
+    <div class = "center-align">
+    <form action="/api/burgers" method="POST">
       <input type="text" id="name" name="burger_name" placeholder="Add your favorite burger">
-      <button type="submit" class="addBurgerButton">Submit</button>
+      <button type="submit" class="btn btn-primary btn-sm" >Submit</button>
     </form>
+    </div>
   </div>
 </div>

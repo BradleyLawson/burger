@@ -41,9 +41,10 @@ var orm = {
 
   // selectAll()    
   selectAll: function(tableInput, cb) {
-    var queryString = "SELECT * FROM" + tableInput + ";";
+    var queryString = "SELECT * FROM " + tableInput + ";";
     connection.query(queryString, function(err, result) {
       if (err) throw err;
+      
       console.log(result);
       cb(result);
     });
@@ -88,7 +89,7 @@ var orm = {
 
       cb(result);
     });
-  },
+  }
 };
 
 // Export the ORM object in module.exports.

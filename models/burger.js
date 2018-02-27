@@ -8,9 +8,9 @@ var burger = {
         cb(res);
       });
     },
-    // The variables cols and vals are arrays.
+    
     insertOne: function(cols, vals, cb) {
-      orm.selectAll("burgers", cols, vals, function(res) {
+      orm.insertOne("burgers", cols, vals, function(res) {
         cb(res);
       });
     },
